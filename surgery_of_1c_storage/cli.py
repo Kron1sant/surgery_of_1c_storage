@@ -1,4 +1,5 @@
 import click
+import os
 
 
 @click.group()
@@ -6,6 +7,8 @@ import click
 @click.pass_obj
 def run_cli(obj, config_file):
     """Работа с внутренним форматом хранения файлов конфигурации 1С"""
+    if not os.path.exists(config_file):
+        return
     obj.init_config(config_file)
 
 
@@ -70,7 +73,7 @@ def load_inner_config_files_by_sql(obj, path_to_files, query_text):
 
 
 @run_cli.command('add-admin', help='Добавить нового пользователя с полными правами')
-@click.option('-U', '--user-name', default='Admin', help='Имя пользователя')
+@click.option('-U', '--user-name', default='Administrator', help='Имя пользователя')
 @click.option('-P', '--user-password', default='', help='Пароль пользователя')
 @click.option('-r', '--role-names', default='ПолныеПрава,АдминистраторСистемы',
               help='Имена ролей через запятую (по умолчанию ПолныеПрава,АдминистраторСистемы)')
@@ -81,16 +84,20 @@ def load_inner_user_info(obj, user_name, user_password, role_names):
 
 @run_cli.command('init-config', help='Создает шаблон конфигурационного файла')
 @click.option('-t', '--db-type', default='psql', help='Тип конфигурации по СУБД: psql, mssql')
-def create_config_template(db_type):
+def init_config(db_type):
     config_file = 'config_template.ini'
-    with open(config_file, 'w') as f:
+    create_config_file(config_file, db_type)
+
+
+def create_config_file(filename, db_type):
+    with open(filename, 'w') as f:
         if db_type == 'psql':
             f.write(template_config_file_psql.strip())
         elif db_type == 'mssql':
             f.write(template_config_file_mssql.strip())
         else:
             raise Exception('Неизвестный тип СУБД')
-    print(f'Шаблон конфигурационного файла для {db_type} сохранен в {config_file}')
+    print(f'Шаблон конфигурационного файла для {db_type} сохранен в {filename}')
 
 
 template_config_file_psql = """
