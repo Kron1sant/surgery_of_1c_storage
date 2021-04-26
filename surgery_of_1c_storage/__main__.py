@@ -45,10 +45,10 @@ class SurgeryOf1CStorage:
     def add_admin_to_base(self, username, user_password='', role_names_str='ПолныеПрава,АдминистраторСистемы'):
         print('Выполняется поиск Полных прав в конфигурации. Может занять несколько минут...')
         role_names = role_names_str.split(',')
-        FullRightsRoleIds = usermanager.get_role_id_by_name(role_names)
+        full_rights_role_ids = usermanager.get_role_id_by_name(role_names)
         user_params = {'username': username,
                        'default_admin': True,
-                       'roles_ids': FullRightsRoleIds,
+                       'roles_ids': full_rights_role_ids,
                        'password': user_password}
         print('Генерация параметров пользователя и добавление в БД...')
         usermanager.add_new_user(**user_params)

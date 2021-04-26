@@ -21,7 +21,7 @@ class DataStructure1C:
         self._tree = Parser1C(self._text).get_tree()
         return self._tree
 
-    def compose_text(self, tree=[]):
+    def compose_text(self, tree=None):
         if tree:
             self._tree = tree
         self._text = Composer1C(self._tree).get_text()
@@ -179,7 +179,7 @@ class Parser1C:
             # Пробуем обернуть в дату, иначе оставляем как число
             try:
                 value = datetime.strptime(self.__current_string__, '%Y%m%d%H%M%S')
-            except:
+            except Exception:
                 value = int(self.__current_string__)
             return value
         else:

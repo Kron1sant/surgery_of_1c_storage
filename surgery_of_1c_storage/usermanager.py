@@ -104,7 +104,7 @@ def get_role_id_by_name(role_names):
         try:
             # Ищем в корне второй ветке
             role_index = config_structure[2].index(role_name)
-        except:
+        except Exception:
             # ToDo имеет смысл поискать вглубину по всему дереву
             raise Exception(f'В конфигуарции не обнаружена роль с именем {role_name}')
 
