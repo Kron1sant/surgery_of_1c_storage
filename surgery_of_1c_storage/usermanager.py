@@ -102,7 +102,7 @@ def get_role_id_by_name(role_names):
     role_ids = []
     for role_name in role_names:
         try:
-            # Ищем в корне второй ветке
+            # Ищем в корне второй ветки
             role_index = config_structure[2].index(role_name)
         except Exception:
             # ToDo имеет смысл поискать вглубину по всему дереву

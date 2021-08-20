@@ -41,7 +41,7 @@ def dump_inner_user_info(obj, path_to_files, user_name, only_admins):
     obj.dump_inner_user_info(path_to_files, user_name, only_admins)
 
 
-@run_cli.command('load-users', help='Закодирвоать и загрузить информацию о пользователях')
+@run_cli.command('load-users', help='Закодировать и загрузить информацию о пользователях')
 @click.option('-i', '--path-to-files', type=click.Path(), default='UsersFiles', help='(Input) Каталог для загрузки')
 @click.option('-U', '--user-name', default='', help='Имя пользователя')
 @click.option('-a', '--only-admins', is_flag=True, help='Загрузить только админов')

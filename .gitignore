@@ -1,3 +1,4 @@
 /venv/
+/data/
 /tests/.test_base_conf_mssql.ini
 /tests/.test_base_conf_psql.ini
