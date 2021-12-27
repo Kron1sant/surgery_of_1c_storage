@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if (type python 2> /dev/null | grep -q is)
-then PY_CMD=python
-elif (type python3 2> /dev/null | grep -q is)
+if (type python3 2> /dev/null | grep -q is)
 then PY_CMD=python3
+elif (type python 2> /dev/null | grep -q is)
+then PY_CMD=python
 else
   echo 'Python is absent'
   exit
