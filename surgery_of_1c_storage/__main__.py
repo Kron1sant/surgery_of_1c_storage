@@ -11,6 +11,7 @@ class SurgeryOf1CStorage:
 
     def init_config(self, config_file):
         self.PARAMS = config.init_config(config_file)
+        self.show_welcome()
 
     def dump_inner_config_files(self, path_to_files, tablename='', filename=''):
         if tablename:
@@ -55,6 +56,11 @@ class SurgeryOf1CStorage:
         print('Помещение пользователя в таблицы БД...')
         print(f'Пользователь {username} добавлен в базу данных')
 
+    def show_welcome(self):
+        print(f"Параметры конфигурации: Тип={self.PARAMS['Database']['TYPE']}; "
+            + f"Сервер БД={self.PARAMS['Database']['SERVER']}; "
+            + f"БД={self.PARAMS['Database']['BASENAME']}"
+            + '\n')
 
 if __name__ == '__main__':
     app = SurgeryOf1CStorage()

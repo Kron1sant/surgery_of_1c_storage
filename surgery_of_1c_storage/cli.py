@@ -84,49 +84,7 @@ def load_inner_user_info(obj, user_name, user_password, role_names):
 
 @run_cli.command('init-config', help='Создает шаблон конфигурационного файла')
 @click.option('-t', '--db-type', default='psql', help='Тип конфигурации по СУБД: psql, mssql')
-def init_config(db_type):
-    config_file = 'config_template.ini'
-    create_config_file(config_file, db_type)
-
-
-def create_config_file(filename, db_type):
-    with open(filename, 'w') as f:
-        if db_type == 'psql':
-            f.write(template_config_file_psql.strip())
-        elif db_type == 'mssql':
-            f.write(template_config_file_mssql.strip())
-        else:
-            raise Exception('Неизвестный тип СУБД')
-    print(f'Шаблон конфигурационного файла для {db_type} сохранен в {filename}')
-
-
-template_config_file_psql = """
-[Database]
-TYPE = Postgres
-SERVER = host
-USER = postgres
-PASSWORD = postgres
-BASENAME = infobase
-
-[InnerStructureKeys]
-TABLES_WITH_CONFIG_FILE = params,files,config,configsave,configcas,configcassave
-
-[Coder]
-FILE_ENCODE_MODE = .encode_modes
-"""
-
-template_config_file_mssql = """
-[Database]
-TYPE = MSSQL
-SERVER = host
-USER = USR1CV8
-PASSWORD = USR1CV8
-BASENAME = infobase
-ODBC_DRIVER={SQL Server Native Client 11.0}
-
-[InnerStructureKeys]
-TABLES_WITH_CONFIG_FILE = params,files,config,configsave,configcas,configcassave
-
-[Coder]
-FILE_ENCODE_MODE = .encode_modes
-"""
+@click.option('-n', '--new-config-name', default='config_template.ini', help='Имя создаваемого конфигурационного файла')
+def init_config(db_type, new_config_name):
+    import config
+    config.create_config_file(new_config_name, db_type)
